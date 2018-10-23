@@ -85,6 +85,16 @@ class TaxCodeDescriptorSpec extends PlaySpec with FakeTaiPlayApplication with I1
     }
   }
 
+  "welshTaxCodeExplanation" must {
+    "return the correct explanation" when {
+      "tax code is prefixed with a C" in {
+        TaxCodeDescriptorConcrete.describeTaxCode("C1", OtherBasisOfOperation, Map.empty[String, BigDecimal]) mustBe
+          ListMap("C" -> Messages(s"tai.taxCode.C",
+            Link.toExternalPage(url = ApplicationConfig.welshRateIncomeTaxUrl, value=Some(Messages("tai.taxCode.welshIncomeText.link"))).toHtml))
+      }
+    }
+  }
+
   "untaxedTaxCodeExplanation" must {
     "return the correct explanation" when {
       "tax code is prefixed with a K" in {

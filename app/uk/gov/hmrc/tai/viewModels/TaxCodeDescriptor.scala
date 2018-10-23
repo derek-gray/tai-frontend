@@ -41,6 +41,7 @@ trait TaxCodeDescriptor {
 
     val explanationRules: Seq[TaxCodeDescriptionTranslator] = Seq(
       scottishTaxCodeExplanation(isCurrentYear),
+      welshTaxCodeExplanation(isCurrentYear),
       untaxedTaxCodeExplanation(isCurrentYear),
       fetchTaxCodeExplanation(isCurrentYear),
       emergencyTaxCodeExplanation(isCurrentYear)
@@ -58,6 +59,18 @@ trait TaxCodeDescriptor {
     scottishRegex.findFirstIn(taxCode) match {
       case Some(code) => ListMap(code -> messages(s"tai.taxCode$previousOrCurrent.$code",
         Link.toExternalPage(url = ApplicationConfig.scottishRateIncomeTaxUrl, value=Some(messages("tai.taxCode.scottishIncomeText.link"))).toHtml))
+      case _ => ListMap[String, String]()
+    }
+  }
+
+  private def welshTaxCodeExplanation(isCurrent: Boolean)(implicit messages: Messages): TaxCodeDescriptionTranslator = (taxCodeDescription: TaxCodeDescription) => {
+    val previousOrCurrent = if (isCurrent) "" else ".prev"
+    val scottishRegex = "^C".r
+    val taxCode = taxCodeDescription.taxCode
+
+    scottishRegex.findFirstIn(taxCode) match {
+      case Some(code) => ListMap(code -> messages(s"tai.taxCode$previousOrCurrent.$code",
+        Link.toExternalPage(url = ApplicationConfig.welshRateIncomeTaxUrl, value=Some(messages("tai.taxCode.welshIncomeText.link"))).toHtml))
       case _ => ListMap[String, String]()
     }
   }

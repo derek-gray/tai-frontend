@@ -923,6 +923,7 @@ tai.taxCode.multiple.info=Defnyddir eich codau treth i gyfrifo faint o Dreth Inc
 tai.taxCode.part.announce=Diffiniad cod treth rhan {0}.
 tai.taxCode.preHeader=Deall eich treth
 tai.taxCode.scottishIncomeText.link=Darllenwch am Dreth Incwm yr Alban ar GOV.UK.
+tai.taxCode.welshIncomeText.link=Read about Welsh Income Tax on GOV.UK. (opens in a new window or tab)
 tai.taxCode.sideBar.heading=Deall eich treth
 tai.taxCode.single.code.title.pt1=Eich cod treth ar gyfer
 tai.taxCode.single.info=Defnyddir eich cod treth i gyfrifo faint o Dreth Incwm i''w chymryd o''ch cyflog neu''ch pensiwn. Fe''i cyfrifir gan ddefnyddio''ch swm rhydd o dreth.
