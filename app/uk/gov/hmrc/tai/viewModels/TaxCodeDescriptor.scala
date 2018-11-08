@@ -15,7 +15,7 @@
  */
 
 package uk.gov.hmrc.tai.viewModels
-
+import controllers.i18n.TaiLanguageController
 import play.api.i18n.Messages
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 import uk.gov.hmrc.tai.config.ApplicationConfig
@@ -65,12 +65,16 @@ trait TaxCodeDescriptor {
 
   private def welshTaxCodeExplanation(isCurrent: Boolean)(implicit messages: Messages): TaxCodeDescriptionTranslator = (taxCodeDescription: TaxCodeDescription) => {
     val previousOrCurrent = if (isCurrent) "" else ".prev"
-    val scottishRegex = "^C".r
+    val welshRegex = "^C".r
     val taxCode = taxCodeDescription.taxCode
 
-    scottishRegex.findFirstIn(taxCode) match {
+    for(i <- 1 to 12) {
+      println(TaiLanguageController.welshLanguageEnabled)
+    }
+    println("safsdsfsdasd")
+    welshRegex.findFirstIn(taxCode) match {
       case Some(code) => ListMap(code -> messages(s"tai.taxCode$previousOrCurrent.$code",
-        Link.toExternalPage(url = ApplicationConfig.welshRateIncomeTaxUrl, value=Some(messages("tai.taxCode.welshIncomeText.link"))).toHtml))
+        Link.toExternalPage(url = if(TaiLanguageController.welshLanguageEnabled) {ApplicationConfig.welshRateIncomeTaxWelshUrl} else {ApplicationConfig.welshRateIncomeTaxUrl} , value=Some(messages("tai.taxCode.welshIncomeText.link"))).toHtml))
       case _ => ListMap[String, String]()
     }
   }
